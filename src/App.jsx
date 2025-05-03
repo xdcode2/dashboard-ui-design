@@ -4,56 +4,55 @@ import { ThemeProvider } from "@/contexts/theme-context";
 
 import Layout from "@/routes/layout";
 import DashboardPage from "@/routes/dashboard/page";
+import LoginForm from "./routes/Login";
+import Karyawan from "./routes/karyawan";
+import AddKaryawan from "./routes/addKaryawan";
 
 function App() {
     const router = createBrowserRouter([
-        {
-            path: "/",
-            element: <Layout />,
-            children: [
+            {
+              path: "/",
+              element: <LoginForm />,
+            },
+            {
+              path: "/",
+              element: <Layout />,
+              children: [
                 {
-                    index: true,
-                    element: <DashboardPage />,
+                  path: "home",
+                  element: <DashboardPage />,
                 },
                 {
-                    path: "analytics",
-                    element: <h1 className="title">Analytics</h1>,
+                  path: "karyawan",
+                  element: <Karyawan/>,
                 },
                 {
-                    path: "reports",
-                    element: <h1 className="title">Reports</h1>,
+                  path: "new-karyawan",
+                  element: <AddKaryawan/>,
                 },
                 {
-                    path: "customers",
-                    element: <h1 className="title">Customers</h1>,
+                  path: "kriteria",
+                  element: <Karyawan/>,
                 },
                 {
-                    path: "new-customer",
-                    element: <h1 className="title">New Customer</h1>,
+                  path: "sub-kriteria",
+                  element: <Karyawan/>,
                 },
                 {
-                    path: "verified-customers",
-                    element: <h1 className="title">Verified Customers</h1>,
+                  path: "alternatif",
+                  element: <Karyawan/>,
                 },
                 {
-                    path: "products",
-                    element: <h1 className="title">Products</h1>,
+                  path: "analytics",
+                  element: <h1 className="title">Analytics</h1>,
                 },
                 {
-                    path: "new-product",
-                    element: <h1 className="title">New Product</h1>,
+                  path: "reports",
+                  element: <h1 className="title">Reports</h1>,
                 },
-                {
-                    path: "inventory",
-                    element: <h1 className="title">Inventory</h1>,
-                },
-                {
-                    path: "settings",
-                    element: <h1 className="title">Settings</h1>,
-                },
-            ],
-        },
-    ]);
+              ],
+            },
+          ]);
 
     return (
         <ThemeProvider storageKey="theme">

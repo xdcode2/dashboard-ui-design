@@ -1,4 +1,4 @@
-import { ChartColumn, Home, NotepadText, Package, PackagePlus, Settings, ShoppingBag, UserCheck, UserPlus, Users } from "lucide-react";
+import { ChartColumn, Home, NotepadText, Package, PackagePlus, Settings, ShoppingBag, UserPlus, Users } from "lucide-react";
 
 import ProfileImage from "@/assets/profile-image.jpg";
 import ProductImage from "@/assets/product-image.jpg";
@@ -10,7 +10,7 @@ export const navbarLinks = [
             {
                 label: "Dashboard",
                 icon: Home,
-                path: "/",
+                path: "/home",
             },
             {
                 label: "Analytics",
@@ -25,42 +25,37 @@ export const navbarLinks = [
         ],
     },
     {
-        title: "Customers",
+        title: "karyawan",
         links: [
             {
-                label: "Customers",
+                label: "karyawan",
                 icon: Users,
-                path: "/customers",
+                path: "/karyawan",
             },
             {
-                label: "New customer",
+                label: "New karyawan",
                 icon: UserPlus,
-                path: "/new-customer",
-            },
-            {
-                label: "Verified customers",
-                icon: UserCheck,
-                path: "/verified-customers",
+                path: "/new-karyawan",
             },
         ],
     },
     {
-        title: "Products",
+        title: "PKriteria dan Bobot",
         links: [
             {
-                label: "Products",
+                label: "Kriteria",
                 icon: Package,
-                path: "/products",
+                path: "/kriteria",
             },
             {
-                label: "New product",
+                label: "Sub Kriteria",
                 icon: PackagePlus,
-                path: "/new-product",
+                path: "/sub-kriteria",
             },
             {
-                label: "Inventory",
+                label: "Alternatif",
                 icon: ShoppingBag,
-                path: "/inventory",
+                path: "/alternatif",
             },
         ],
     },

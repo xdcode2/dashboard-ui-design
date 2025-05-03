@@ -7,9 +7,45 @@ import { overviewData, recentSalesData, topProducts } from "@/constants";
 import { Footer } from "@/layouts/footer";
 
 import { CreditCard, DollarSign, Package, PencilLine, Star, Trash, TrendingUp, Users } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getMe } from "../../features/authSlice";
+import axios from "axios";
 
 const DashboardPage = () => {
     const { theme } = useTheme();
+    const [jumlahKaryawan, setJumlahKaryawan] = useState([]);
+    
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {isError} = useSelector((state) => state.auth);
+  
+    useEffect(() => {
+      dispatch(getMe());
+    },  [dispatch])
+  
+    useEffect(() => {
+      if (isError) {
+        navigate("/");
+      }
+    }, [isError, navigate])
+
+    
+        
+          useEffect(() => {
+            fetchKaryawanData();
+          }, []);
+        
+          const fetchKaryawanData = async () => {
+            try {
+              const response = await axios.get("http://localhost:5000/users");
+              console.log(response.data);
+              setJumlahKaryawan(response.data);
+            } catch (error) {
+              console.log(error);
+            }
+          };
 
     return (
         <div className="flex flex-col gap-y-4">
@@ -18,19 +54,20 @@ const DashboardPage = () => {
                 <div className="card">
                     <div className="card-header">
                         <div className="w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-blue-600/20 dark:text-blue-600">
-                            <Package size={26} />
+                            <Users size={26} />
+                            
                         </div>
-                        <p className="card-title">Total Products</p>
+                        <p className="card-title">Jumlah Karyawan</p>
                     </div>
                     <div className="card-body bg-slate-100 transition-colors dark:bg-slate-950">
-                        <p className="text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50">25,154</p>
-                        <span className="flex w-fit items-center gap-x-2 rounded-full border border-blue-500 px-2 py-1 font-medium text-blue-500 dark:border-blue-600 dark:text-blue-600">
+                        <p className="text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50">{jumlahKaryawan.length}</p>
+                        {/* <span className="flex w-fit items-center gap-x-2 rounded-full border border-blue-500 px-2 py-1 font-medium text-blue-500 dark:border-blue-600 dark:text-blue-600">
                             <TrendingUp size={18} />
                             25%
-                        </span>
+                        </span> */}
                     </div>
                 </div>
-                <div className="card">
+                {/* <div className="card">
                     <div className="card-header">
                         <div className="rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-blue-600/20 dark:text-blue-600">
                             <DollarSign size={26} />
@@ -44,8 +81,8 @@ const DashboardPage = () => {
                             12%
                         </span>
                     </div>
-                </div>
-                <div className="card">
+                </div> */}
+                {/* <div className="card">
                     <div className="card-header">
                         <div className="rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-blue-600/20 dark:text-blue-600">
                             <Users size={26} />
@@ -59,8 +96,8 @@ const DashboardPage = () => {
                             15%
                         </span>
                     </div>
-                </div>
-                <div className="card">
+                </div> */}
+                {/* <div className="card">
                     <div className="card-header">
                         <div className="rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-blue-600/20 dark:text-blue-600">
                             <CreditCard size={26} />
@@ -74,9 +111,9 @@ const DashboardPage = () => {
                             19%
                         </span>
                     </div>
-                </div>
+                </div> */}
             </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
+            {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <div className="card col-span-1 md:col-span-2 lg:col-span-4">
                     <div className="card-header">
                         <p className="card-title">Overview</p>
@@ -171,7 +208,7 @@ const DashboardPage = () => {
                         ))}
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="card">
                 <div className="card-header">
                     <p className="card-title">Top Orders</p>
@@ -198,14 +235,9 @@ const DashboardPage = () => {
                                         <td className="table-cell">{product.number}</td>
                                         <td className="table-cell">
                                             <div className="flex w-max gap-x-4">
-                                                <img
-                                                    src={product.image}
-                                                    alt={product.name}
-                                                    className="size-14 rounded-lg object-cover"
-                                                />
+                                                
                                                 <div className="flex flex-col">
                                                     <p>{product.name}</p>
-                                                    <p className="font-normal text-slate-600 dark:text-slate-400">{product.description}</p>
                                                 </div>
                                             </div>
                                         </td>
