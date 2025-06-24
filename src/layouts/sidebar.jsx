@@ -31,30 +31,48 @@ export const Sidebar = forwardRef(({ collapsed }, ref) => {
                     alt="Logoipsum"
                     className="hidden dark:block"
                 />
-                {!collapsed && <p className="text-lg font-medium text-slate-900 transition-colors dark:text-slate-50">Logoipsum</p>}
+                {!collapsed && (
+                    <p className="text-lg font-medium text-slate-900 transition-colors dark:text-slate-50">
+                        WEB APP POS
+                    </p>
+                )}
             </div>
+
             <div className="flex w-full flex-col gap-y-4 overflow-y-auto overflow-x-hidden p-3 [scrollbar-width:_thin]">
                 {navbarLinks.map((navbarLink) => (
                     <nav
                         key={navbarLink.title}
                         className={cn("sidebar-group", collapsed && "md:items-center")}
                     >
-                        <p className={cn("sidebar-group-title", collapsed && "md:w-[45px]")}>{navbarLink.title}</p>
+                        <p className={cn("sidebar-group-title", collapsed && "md:w-[45px]")}>
+                            {navbarLink.title}
+                        </p>
                         {navbarLink.links.map((link) => (
                             <NavLink
                                 key={link.label}
                                 to={link.path}
                                 className={cn("sidebar-item", collapsed && "md:w-[45px]")}
                             >
-                                <link.icon
-                                    size={22}
-                                    className="flex-shrink-0"
-                                />
+                                <link.icon size={22} className="flex-shrink-0" />
                                 {!collapsed && <p className="whitespace-nowrap">{link.label}</p>}
                             </NavLink>
                         ))}
                     </nav>
                 ))}
+
+                {/* 👇 Added Signup Link */}
+                <div className="mt-4 border-t border-slate-700 pt-4">
+                    <NavLink
+                        to="/signup"
+                        className={cn(
+                            "sidebar-item text-indigo-400 hover:text-white",
+                            collapsed && "md:w-[45px]"
+                        )}
+                    >
+                      
+                        {!collapsed && <p className="whitespace-nowrap">Signup</p>}
+                    </NavLink>
+                </div>
             </div>
         </aside>
     );

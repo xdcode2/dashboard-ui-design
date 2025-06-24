@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useClickOutside } from "@/hooks/use-click-outside";
@@ -10,9 +10,11 @@ import { cn } from "@/utils/cn";
 import { useEffect, useRef, useState } from "react";
 
 const Layout = () => {
+    const location = useLocation();
+    const isAuthPage = ["/signup", "/login"].includes(location.pathname);
+
     const isDesktopDevice = useMediaQuery("(min-width: 768px)");
     const [collapsed, setCollapsed] = useState(!isDesktopDevice);
-
     const sidebarRef = useRef(null);
 
     useEffect(() => {
@@ -25,6 +27,12 @@ const Layout = () => {
         }
     });
 
+    // 🟢 Render auth page directly (no layout)
+    if (isAuthPage) {
+        return <Outlet />;
+    }
+
+    // 🟢 Default layout for all other pages
     return (
         <div className="min-h-screen bg-slate-100 transition-colors dark:bg-slate-950">
             <div
@@ -33,15 +41,9 @@ const Layout = () => {
                     !collapsed && "max-md:pointer-events-auto max-md:z-50 max-md:opacity-30",
                 )}
             />
-            <Sidebar
-                ref={sidebarRef}
-                collapsed={collapsed}
-            />
+            <Sidebar ref={sidebarRef} collapsed={collapsed} />
             <div className={cn("transition-[margin] duration-300", collapsed ? "md:ml-[70px]" : "md:ml-[240px]")}>
-                <Header
-                    collapsed={collapsed}
-                    setCollapsed={setCollapsed}
-                />
+                <Header collapsed={collapsed} setCollapsed={setCollapsed} />
                 <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden p-6">
                     <Outlet />
                 </div>
